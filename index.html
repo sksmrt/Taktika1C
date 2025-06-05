@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ПК клуб Taktika</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background-color: #0c0a14; color: #fff; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+  .section-title::before {
+    content: "";
+    display: inline-block;
+    width: 100px;
+    height: 2px;
+    background: #6a42d2;
+    margin-right: 1rem;
+    vertical-align: middle;
+  }
+  .accordion-header::after {
+    content: '+';
+    float: right;
+    cursor: pointer;
+    color: #6a42d2;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 1;
+  }
+  .accordion-header.active::after {
+    content: '−';
+  }
+  .accordion-content {
+    display: none;
+  }
+  .accordion-content.active {
+    display: block;
+    margin-top: 0.5rem;
+    color: #bbb;
+  }
+
+  /* Модальное окно */
+  #modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  #modal.active {
+    display: flex;
+  }
+  #modal-content {
+    background: #222;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 320px;
+    color: white;
+  }
+  #modal-content input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+  }
+  #modal-content button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #7c5adb;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #modal-content button:hover {
+    background-color: #6139b9;
+  }
+</style>
+</head>
+<body>
+
+<header class="flex justify-between items-center max-w-7xl mx-auto px-6 py-4 border-b border-[#211438]">
+  <img src="logo.png" alt="Логотип" class="h-10" />
+  <nav class="space-x-8 text-white text-sm font-semibold">
+    <a href="#prices" class="hover:text-purple-600">Цены</a>
+    <a href="#about" class="hover:text-purple-600">О нас</a>
+    <a href="#games" class="hover:text-purple-600">Игры</a>
+    <a href="#contacts" class="hover:text-purple-600">Контакты</a>
+    <a href="#rules" class="hover:text-purple-600">Правила</a>
+  </nav>
+  <button onclick="openModal()" class="border border-purple-600 text-purple-600 px-5 py-2 rounded hover:bg-purple-600 hover:text-white transition">
+    Забронировать ПК
+  </button>
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-12">
+  <!-- Hero -->
+  <section class="flex flex-col md:flex-row items-center justify-between mb-20">
+    <div class="max-w-md mb-8 md:mb-0">
+      <h1 class="text-5xl font-extrabold leading-tight mb-6">
+        Taktika —<br />
+        компьютерный клуб 24/7
+      </h1>
+      <button onclick="document.getElementById('prices').scrollIntoView({behavior:'smooth'})" class="border border-white rounded-full w-16 h-16 flex items-center justify-center hover:bg-white hover:text-black transition">
+        ↓
+      </button>
+    </div>
+    <img src="pc-cyber1.png" alt="ПК Taktika" class="w-96" />
+  </section>
+
+  <!-- Prices -->
+<section id="prices" class="mb-20">
+  <h2 class="text-3xl font-extrabold mb-4 section-title">Цены</h2>
+  <p class="text-gray-400 max-w-xl mb-12">
+    Мы оперативно доставляем уже укомплектованные и настроенные консоли с джойстиками и играми, по доступным ценам
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <!-- 1 -->
+    <div class="bg-[#211438] rounded-lg p-8 flex flex-col items-center text-center h-[600px]">
+      <div class="mb-8 h-60 flex items-center justify-center">
+        <img src="ps5.png" alt="PS5" class="max-h-full" />
+      </div>
+      <div class="flex flex-col flex-grow justify-between w-full">
+        <div>
+          <h3 class="font-semibold text-2xl mb-3">PS5</h3>
+          <p class="text-gray-400 mb-3 text-lg">Комплект: PS5 + 2 джойстика + VR комплект</p>
+          <p class="font-semibold mb-6 text-xl">Цена: от 450 ₽/час</p>
+        </div>
+        <button onclick="openModal()" class="border border-purple-600 px-8 py-3 rounded hover:bg-purple-600 hover:text-white transition w-full text-lg font-semibold">
+          Забронировать
+        </button>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="bg-[#211438] rounded-lg p-8 flex flex-col items-center text-center h-[600px]">
+      <div class="mb-8 h-60 flex items-center justify-center">
+        <img src="pc-cyber2.png" alt="ПК" class="max-h-full" />
+      </div>
+      <div class="flex flex-col flex-grow justify-between w-full">
+        <div>
+          <h3 class="font-semibold text-2xl mb-3">ПК</h3>
+          <p class="text-gray-400 mb-3 text-lg">Комплект: ПК + Периферия + Респект от Вадима</p>
+          <p class="font-semibold mb-6 text-xl">Цена: от 150 ₽/час</p>
+        </div>
+        <button onclick="openModal()" class="border border-purple-600 px-8 py-3 rounded hover:bg-purple-600 hover:text-white transition w-full text-lg font-semibold">
+          Забронировать
+        </button>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="bg-[#211438] rounded-lg p-8 flex flex-col items-center text-center h-[600px]">
+      <div class="mb-8 h-60 flex items-center justify-center">
+        <img src="ps4.png" alt="PS4 PRO" class="max-h-full" />
+      </div>
+      <div class="flex flex-col flex-grow justify-between w-full">
+        <div>
+          <h3 class="font-semibold text-2xl mb-3">PS4 PRO</h3>
+          <p class="text-gray-400 mb-3 text-lg">Комплект: PS4 Pro + 2 джойстика + 2 игры</p>
+          <p class="font-semibold mb-6 text-xl">Цена: от 400 ₽/час</p>
+        </div>
+        <button onclick="openModal()" class="border border-purple-600 px-8 py-3 rounded hover:bg-purple-600 hover:text-white transition w-full text-lg font-semibold">
+          Забронировать
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="bg-[#211438] rounded-lg p-8 flex flex-col items-center text-center h-[600px]">
+      <div class="mb-8 h-60 flex items-center justify-center">
+        <img src="pc-cyber3.png" alt="ПК VIP" class="max-h-full" />
+      </div>
+      <div class="flex flex-col flex-grow justify-between w-full">
+        <div>
+          <h3 class="font-semibold text-2xl mb-3">ПК VIP</h3>
+          <p class="text-gray-400 mb-3 text-lg">Комплект: ПК VIP + Периферия + VIP зал</p>
+          <p class="font-semibold mb-6 text-xl">Цена: от 200 ₽/сутки</p>
+        </div>
+        <button onclick="openModal()" class="border border-purple-600 px-8 py-3 rounded hover:bg-purple-600 hover:text-white transition w-full text-lg font-semibold">
+          Забронировать
+        </button>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="bg-[#211438] rounded-lg p-8 flex flex-col items-center text-center h-[600px]">
+      <div class="mb-8 h-60 flex items-center justify-center">
+        <img src="ps4.png" alt="PS4" class="max-h-full" />
+      </div>
+      <div class="flex flex-col flex-grow justify-between w-full">
+        <div>
+          <h3 class="font-semibold text-2xl mb-3">PS4</h3>
+          <p class="text-gray-400 mb-3 text-lg">Комплект: PS4 + 2 джойстика + 2 игры</p>
+          <p class="font-semibold mb-6 text-xl">Цена: от 350 ₽/час</p>
+        </div>
+        <button onclick="openModal()" class="border border-purple-600 px-8 py-3 rounded hover:bg-purple-600 hover:text-white transition w-full text-lg font-semibold">
+          Забронировать
+        </button>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="bg-[#211438] rounded-lg p-8 flex flex-col items-center text-center h-[600px]">
+      <div class="mb-8 h-60 flex items-center justify-center">
+        <img src="pc-cyber1.png" alt="ПК PREMIUM" class="max-h-full" />
+      </div>
+      <div class="flex flex-col flex-grow justify-between w-full">
+        <div>
+          <h3 class="font-semibold text-2xl mb-3">ПК PREMIUM</h3>
+          <p class="text-gray-400 mb-3 text-lg">Комплект: ПК PREMIUM + Периферия + VIP зал</p>
+          <p class="font-semibold mb-6 text-xl">Цена: от 300 ₽/сутки</p>
+        </div>
+        <button onclick="openModal()" class="border border-purple-600 px-8 py-3 rounded hover:bg-purple-600 hover:text-white transition w-full text-lg font-semibold">
+          Забронировать
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- About -->
+  <section id="about" class="mb-20 flex flex-col md:flex-row items-center gap-12">
+    <img src="pc-cyber1.png" alt="ПК Taktika" class="w-96" />
+    <div class="max-w-xl">
+      <h2 class="text-3xl font-extrabold mb-4 section-title">Погрузись в мир игр</h2>
+      <p class="text-gray-400 mb-6">
+        Наш ПК-клуб — это современное игровое пространство с мощными компьютерами, удобными креслами и атмосферой киберспорта. Идеально для геймеров, стримеров и командных турниров.
+      </p>
+      <button onclick="openModal()" class="border border-purple-600 px-6 py-2 rounded hover:bg-purple-600 hover:text-white transition">
+        Забронировать
+      </button>
+    </div>
+  </section>
+
+  <!-- Games -->
+  <section id="games" class="mb-20">
+    <h2 class="text-3xl font-extrabold mb-4 section-title">Каталог новейших и лучших игр</h2>
+    <p class="text-gray-400 max-w-xl mb-10">
+      Одни из самых популярных игр в нашем клубе
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <img src="dota2.png" alt="Dota 2" class="rounded-lg" />
+      <img src="pubg.png" alt="PUBG" class="rounded-lg" />
+      <img src="fortnite.png" alt="Fortnite" class="rounded-lg" />
+      <img src="overwatch.png" alt="Overwatch" class="rounded-lg" />
+      <img src="warface.png" alt="Warface" class="rounded-lg" />
+      <img src="cod.png" alt="Call of Duty" class="rounded-lg" />
+    </div>
+  </section>
+
+  <!-- Rules -->
+  <section id="rules" class="mb-20 max-w-xl mx-auto">
+    <h2 class="text-3xl font-extrabold mb-6 section-title">Правила клуба</h2>
+    <p class="text-gray-400 mb-6">Играй честно. Играй увлечённо. Уважай других</p>
+
+    <button class="accordion-header w-full text-left py-3 px-4 border border-purple-600 rounded mb-2 focus:outline-none">Первое правило клуба</button>
+    <div class="accordion-content px-4 mb-4">
+      Никто не должен знать о клубе
+    </div>
+
+    <button class="accordion-header w-full text-left py-3 px-4 border border-purple-600 rounded mb-2 focus:outline-none">Уважай других игроков</button>
+    <div class="accordion-content px-4 mb-4">
+      Не допускается токсичное поведение, оскорбления или провокации.
+    </div>
+
+    <button class="accordion-header w-full text-left py-3 px-4 border border-purple-600 rounded mb-2 focus:outline-none">Не мешай другим</button>
+    <div class="accordion-content px-4 mb-4">
+      Используй наушники, не выкрикивай во время игры, не трогай чужое оборудование.
+    </div>
+
+    <button class="accordion-header w-full text-left py-3 px-4 border border-purple-600 rounded mb-2 focus:outline-none">Береги технику</button>
+    <div class="accordion-content px-4 mb-4">
+      Оборудование — дорогое. Ломать — платить. Обращайся аккуратно.
+    </div>
+
+    <button class="accordion-header w-full text-left py-3 px-4 border border-purple-600 rounded mb-2 focus:outline-none">Чистота — залог фрагов</button>
+    <div class="accordion-content px-4 mb-4">
+      Держите игровое место в чистом виде и убирайте после себя.
+    </div>
+  </section>
+
+  <!-- Contacts -->
+<footer class="max-w-7xl mx-auto px-6 py-10 border-t border-[#211438] flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
+  <div class="mb-4 md:mb-0">
+    <h3 class="font-semibold mb-2">Связаться с нами просто и удобно!</h3>
+    <p>+7(964)-095-5551</p>
+    <p>г. Новосибирск, ул. Пушкина, дом. Колотушкина</p>
+    <p>mail@new-game-site.ru</p>
+  </div>
+  <div class="flex space-x-6">
+    <a href="https://vk.com/id405983771" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600">VK</a>
+    <a href="https://www.instagram.com/sksmrtttttt?utm_source=qr" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600">Instagram</a>
+    <a href="#" class="hover:text-purple-600">WhatsApp</a>
+    <a href="https://t.me/whiteeeestar" target="_blank" rel="noopener noreferrer" class="hover:text-purple-600">Telegram</a>
+  </div>
+</footer>
+
+<!-- Модальное окно -->
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50" style="display:none;">
+  <div class="bg-gray-900 p-8 rounded max-w-sm w-full text-white relative">
+    <button onclick="closeModal()" 
+            class="absolute top-2 right-2 text-white text-xl font-bold hover:text-purple-400" 
+            aria-label="Закрыть модальное окно">&times;</button>
+    <h2 class="text-2xl mb-6">Бронирование</h2>
+    <input id="nameInput" type="text" placeholder="Ваше имя" class="w-full p-2 mb-4 rounded text-black" />
+    <input id="phoneInput" type="text" placeholder="Телефон" class="w-full p-2 mb-6 rounded text-black" />
+    <label for="deviceSelect" class="block mb-2">Выберите устройство</label>
+    <select id="deviceSelect" class="w-full p-2 mb-6 rounded text-black">
+      <option value="">-- Выберите устройство --</option>
+      <option value="PS5">PS5</option>
+      <option value="ПК">ПК</option>
+      <option value="PS4 PRO">PS4 PRO</option>
+      <option value="ПК VIP">ПК VIP</option>
+      <option value="PS4">PS4</option>
+      <option value="ПК PREMIUM">ПК PREMIUM</option>
+    </select>
+    <button id="submitBtn" 
+            class="bg-purple-700 px-4 py-2 rounded w-full font-bold cursor-pointer" 
+            onclick="submitForm()">
+      Отправить
+    </button>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('modal').style.display = 'flex';
+  }
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+  function submitForm() {
+    alert('Спасибо за заявку!');
+    closeModal();
+  }
+</script>
+
+
+</body>
+</html>
